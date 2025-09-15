@@ -1,10 +1,14 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
+  display: "swap",
 });
 
 const geistMono = Geist_Mono({
@@ -27,8 +31,25 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <Header logoIcon={<LightningIcon />} logo="ADVOCACY®" />
+        <main className="min-h-screen">
+          {children}
+        </main>
+        <Footer logoIcon={<LightningIcon />} companyName="ADVOCACY®" />
       </body>
     </html>
   );
 }
+
+const LightningIcon = () => (
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className="text-white"
+  >
+    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" fill="currentColor" />
+  </svg>
+);
