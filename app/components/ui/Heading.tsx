@@ -9,12 +9,13 @@ interface HeadingProps extends React.HTMLAttributes<HTMLHeadingElement> {
 
 const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
   ({ level, children, className, ...props }, ref) => {
-    const Component = `h${level}` as keyof JSX.IntrinsicElements;
+    const Component = `h${level}` as keyof React.JSX.IntrinsicElements;
     
-    return (
-      <Component
-        ref={ref}
-        className={cn(
+    return React.createElement(
+      Component,
+      {
+        ref,
+        className: cn(
           'font-bold text-gray-900',
           {
             'text-4xl md:text-5xl lg:text-6xl': level === 1,
@@ -25,11 +26,10 @@ const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
             'text-base md:text-lg lg:text-xl': level === 6,
           },
           className
-        )}
-        {...props}
-      >
-        {children}
-      </Component>
+        ),
+        ...props
+      },
+      children
     );
   }
 );
